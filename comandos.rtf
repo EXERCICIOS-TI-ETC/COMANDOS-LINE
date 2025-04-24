@@ -1,0 +1,78 @@
+lan 1 é um barra 27
+209.165.201.0
+
+
+lan2 
+209.165.201.32
+
+o boradcast vai ser .63
+
+g0-0-1 209.165.201.1/27
+
+g0/0/0 209.165.201.33/27
+
+pc a 209.165.201.30/27
+
+pc b - 209.165.201.62/27
+
+##########EM ROUTER
+
+enable
+conf t
+no ip domain-lookup
+hostname R1
+banner motd $FIZ CCNA NO SENAI$
+line con 0
+password C@nsPassw!
+login
+INTERFACE g0/0/1
+descr LAN 1
+ip add 209.165.201.1 255.255.255.224
+no shut
+INTERFACE g0/0/0
+descr LAN 2
+ip add 209.165.201.33 255.255.255.224
+no shut
+exit
+enable secret (olha la a senha)
+service password-encr
+security passwords min-length 10
+ip domain netsec.com
+username netadmin secret Ci$co12345
+line vty 0 15
+login local
+transport input ssh
+exit
+crypto key generate rsa general-keys modulus 2024
+
+
+############em switch
+
+
+
+enable
+conf t
+no ip domain-lookup
+hostname S1
+banner motd $FIZ CCNA NO SENAI$
+line con 0
+password C@nsPassw!
+login
+INTERFACE VLAN 1
+descr LAN 1
+ip add 209.165.201.1 255.255.255.224
+no shut
+exit
+ip default-gateway 209.165.201.1
+enable secret NoOneShoulKnow
+service password-encr
+enable secret (olha la a senha)
+service password-encr
+security passwords min-length 10
+ip domain netsec.com
+username netadmin secret Ci$co12345
+line vty 0 15
+login local
+transport input ssh
+exit
+crypto key generate rsa general-keys modulus 2024
