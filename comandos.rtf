@@ -44,6 +44,8 @@ login local
 transport input ssh
 exit
 crypto key generate rsa general-keys modulus 2024
+end
+wr
 
 
 ############em switch
@@ -76,3 +78,8 @@ login local
 transport input ssh
 exit
 crypto key generate rsa general-keys modulus 2024
+interface range f0/1-4, f0/7-24, g0/1-2
+descr SEM USO
+shut
+end
+wr
